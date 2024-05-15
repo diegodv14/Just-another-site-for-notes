@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'Kalam';
+    src: url('/kalam-latin-400-normal.woff2') format('woff2');
+    font-display: block;
+}
+
+.auth {
+    background-image: url('/bg-note.jpg') !important;
+    background-repeat: no-repeat;
+    background-size: 105%;
+    background-position: center;
+    font-family: 'Kalam' !important;
+}
+
+.label {
+    display: grid;
+    grid-template-areas: "input";
+
+}
+
+.input {
+    grid-area: input;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: .9rem 1.8rem;
+}
+
+.label_name {
+    grid-area: input;
+    margin-left: 1rem;
+    padding: 0.5rem;
+    align-self: center;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+
+    transition: transform .2s;
+    transform-origin: center left;
+}
+
+.error {
+    margin-left: 10px;
+}
+
+.input:focus+.label_name,
+.input:not(:placeholder-shown)+.label_name {
+    transform: translateY(-70%) scale(.7);
+    background-color: #E2E2E3;
+    will-change: transform;
+}
+
+.input:focus+.label_name,
+.input:not(:placeholder-shown)+.error {
+    will-change: transform;
+}
+
+input:-internal-autofill-selected {
+    appearance: menulist-button;
+    background-color: transparent !important;
+    color: fieldtext !important;
+}

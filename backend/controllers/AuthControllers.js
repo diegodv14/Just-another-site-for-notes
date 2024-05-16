@@ -39,15 +39,14 @@ export const GetLogin = async (req, res) => {
 
         if (!passwordCorrect) return res.json({ error: "The password is incorrect" })
 
-        const userData = {
-            id: UserFound._id,
-            username: UserFound.username
-        }
-
-        const token = jwt.sign(userData, process.env.SECRET, { expiresIn: 60 * 60 })
+        const token = jwt.sign({ username: UserFound.username, id: UserFound._id }, process.env.SECRET, { expiresIn: 60 * 60 })
         if (!token) return res.json({ error: "An error ocurred generating the token" })
         else {
-            res.cookie('token', token)
+            const userData = {
+                id: UserFound._id,
+                username: UserFound.username,
+                token: token
+            }
             res.status(200).json(userData)
         }
     }
@@ -57,6 +56,5 @@ export const GetLogin = async (req, res) => {
 }
 
 export const GetLogout = (req, res) => {
-    res.cookie('token', '')
     res.status(200).json({ message: 'you are out' })
 }

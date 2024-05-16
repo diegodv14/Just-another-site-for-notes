@@ -7,8 +7,7 @@ export const authSchema = z.object({
     }),
     password: z.string({
         required_error: "the password is required"
-    })
-
+    }),
 })
 
 

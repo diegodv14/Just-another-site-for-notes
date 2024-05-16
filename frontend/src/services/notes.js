@@ -1,8 +1,12 @@
 import axios from 'axios'
 const baseUrl = import.meta.env.VITE_BACKEND_NOTEURL || 'http://localhost:3001/api/notes'
 
-const getAll = () => {
-    const request = axios.get(baseUrl)
+const getAll = (token) => {
+    const request = axios.get(baseUrl, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
     return request.then(response => response.data)
 }
 

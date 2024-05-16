@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 
 export const GetNotes = async (req, res) => {
     try {
-        const user = jwt.verify(req.cookies.token, process.env.SECRET)
+        const user = jwt.verify(req.token, process.env.SECRET)
         const notes = await Note.find({ user: user.id })
         res.status(200).json(notes)
     }
@@ -16,7 +16,7 @@ export const GetNotes = async (req, res) => {
 
 export const GetSpecificNote = async (req, res) => {
     try {
-        const note = await Note.findById(req.params.id)
+        const note = await Note.findById(req.token)
 
         if (!note) res.status(404).json({ error: "Note not found" })
 

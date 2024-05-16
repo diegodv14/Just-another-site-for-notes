@@ -10,11 +10,11 @@ export const Register = () => {
     const [confirmMessage, setConfirmMessage] = useState(null)
     const { user, setUser } = useUserContext()
 
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (user.username && user.id) {
+        if (user.username && user.id && user.token) {
             navigate('/notes')
         }
     }, [user])
@@ -38,6 +38,12 @@ export const Register = () => {
             }
             if (response.username) {
                 setUser(response)
+                const SavedUser = JSON.stringify({
+                    id: String(response.id),
+                    username: response.username,
+                    token: response.token
+                })
+                window.localStorage.setItem('user', SavedUser)
             }
         })
         else {

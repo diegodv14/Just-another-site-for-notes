@@ -3,15 +3,20 @@ import AuthServices from "../services/login"
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from "../context/userContext"
+import { useNoteContext } from "../context/notesContext"
 export const Register = () => {
 
     const [FormState, setFormState] = useState("login")
     const [errorMessage, setErrorMessage] = useState(null)
     const [confirmMessage, setConfirmMessage] = useState(null)
     const { user, setUser } = useUserContext()
-
+    const { setNotes } = useNoteContext()
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setNotes([])
+    }, [])
 
     useEffect(() => {
         if (user.username && user.id && user.token) {

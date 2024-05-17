@@ -39,20 +39,18 @@ export const NoteList = () => {
         )
     }, [])
 
-    const AddNote = data => {
+    const AddNote = async data => {
         const newNote = {
             content: data.content,
             important: data.important,
             color: isNewNote.background
         }
-        noteServices.create(newNote, user.token).then(response => {
-            addNote(response)
-        })
+        const response = await noteServices.create(newNote, user.token)
+        addNote(response)
         clearErrors()
         setValue("content", "")
         setValue("important", false)
         setIsNewNote(null)
-
     }
 
     const throwNote = () => {
@@ -66,9 +64,10 @@ export const NoteList = () => {
             <div className="flex flex-col w-full gap-2">
                 <ToolBar setIsNewNote={setIsNewNote} />
                 <section className="flex-1 pl-6 pr-6 pb-6 shadow-xl">
-                    <ul className="h-[600px] flex flex-col gap-2 p-6 overflow-scroll pb-24">
-                        {isNewNote && <form onSubmit={handleSubmit(AddNote)} className={`w-full shadow-xl h-16 rounded-md p-4 flex items-center flex-row justify-between ${isNewNote.background}`}>
-                            <div className="flex flex-row items-center  gap-4">
+                    <ul className="p-6 overflow-y-auto pb-24 justify-center list">
+                        {isNewNote && <form onSubmit={handleSubmit(AddNote)} className={`shadow-xl size-64 rounded-md p-4 flex items-center flex-col justify-between ${isNewNote.background}`}>
+                            <div className="flex flex-col
+                             items-center  gap-4">
                                 <input type="text" {...register("content", {
                                     required: true
                                 })} />
@@ -87,6 +86,7 @@ export const NoteList = () => {
                                 </svg></button>
                             </div>
                         </form>}
+                        {notes.length === 0 && <span className="self-center text-4xl">There are no notes</span>}
                         {notes.map(note =>
                             <Note key={String(note._id)} note={note} />
                         )}

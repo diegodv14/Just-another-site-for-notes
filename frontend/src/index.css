@@ -78,19 +78,56 @@ input:-internal-autofill-selected {
 
 .dashboard {
     background-color: #ffffff;
-    background-image: url("https://www.transparenttextures.com/patterns/lined-paper-2.png");
 }
 
-.list::-webkit-scrollbar-thumb {
-    background-color: black;
+.categories {
+    color: white;
+    display: grid;
+    gap: 10px;
+    grid-template-areas:
+        "todo money work work"
+        "todo travel travel shop"
+        "todo idea health shop"
+        "me me health study"
+    ;
+}
+
+.categories>button {
     border-radius: 25px;
 }
 
-.list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    row-gap: 12px;
-    column-gap: 12px;
-    min-height: fit-content;
-    max-height: 600px;
+.all {
+    grid-area: todo;
+}
+
+.work {
+    grid-area: work;
+}
+
+.shop {
+    grid-area: shop;
+}
+
+.study {
+    grid-area: study;
+}
+
+.me {
+    grid-area: me;
+}
+
+.money {
+    grid-area: money;
+}
+
+.travel {
+    grid-area: travel;
+}
+
+.idea {
+    grid-area: idea;
+}
+
+.health {
+    grid-area: health;
 }

@@ -1,12 +1,17 @@
 import mongoose from "mongoose"
 const noteSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        minLength: 5,
+        required: true
+    },
     content: {
         type: String,
         minLength: 5,
         required: true
     },
     important: Boolean,
-    color: {
+    category: {
         type: String,
         required: true
     },

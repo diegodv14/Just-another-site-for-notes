@@ -2,7 +2,6 @@ import mongoose from "mongoose"
 const noteSchema = new mongoose.Schema({
     title: {
         type: String,
-        minLength: 5,
         required: true
     },
     content: {

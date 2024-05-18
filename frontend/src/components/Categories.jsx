@@ -30,14 +30,14 @@ export const Categories = ({ setType }) => {
                     <button
                         key={i}
                         onClick={() => HandleCategory(category.category)}
-                        className={`${category.style} shadow-md flex justify-center items-center p-4 relative`}
+                        className={`${category.style} ${category.class} shadow-md flex justify-center items-center p-4 relative`}
                     >
                         <span className="flex flex-row gap-4">
                             {category.category}
                             <category.icon />
                         </span>
                         <span className="text-white absolute bottom-4 right-4">
-                            {category === "All" ? notes.length : filteredNotes.length}
+                            {category.category === "All" ? notes.length : filteredNotes.length}
                         </span>
                     </button>
                 );

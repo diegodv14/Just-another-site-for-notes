@@ -33,9 +33,10 @@ export const PostNote = async (req, res) => {
         const user = await User.findById(req.data.id)
 
         const CreatedNote = {
+            title: req.body.title,
             content: req.body.content,
             important: req.body.important,
-            color: req.body.color,
+            category: req.body.category,
             user: user.id
         }
         const NewNote = new Note(CreatedNote)

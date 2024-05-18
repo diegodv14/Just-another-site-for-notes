@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import noteServices from "../services/notes"
 import { useUserContext } from "../context/userContext"
 import { useForm } from "react-hook-form"
@@ -10,20 +10,33 @@ import { Categories } from "../constants/Categories"
 export const NoteList = ({ dataCategory, setType }) => {
 
     const { user } = useUserContext()
-    const { addNote } = useNoteContext()
+    const { notes, addNote } = useNoteContext()
+    const [filteredArray, setFilteredArray] = useState()
     const [isNewNote, setIsNewNote] = useState(false)
-    const { register, handleSubmit, clearErrors } = useForm()
+    const { register, handleSubmit, clearErrors, setValue } = useForm({
+        defaultValues: {
+            important: false,
+        }
+    })
+
 
     useEffect(() => {
-        console.log(dataCategory)
-    }, [])
+        if (dataCategory.category === "All") setFilteredArray(notes)
+        else {
+            const newArray = notes.filter(note => note.category === dataCategory.category)
+            setFilteredArray(newArray)
+        }
+    }, [notes])
+
 
     const AddNote = async data => {
         const newNote = {
+            title: data.title,
             content: data.content,
             important: data.important,
-            category: data.category
+            category: data.category || dataCategory.category
         }
+        console.log(newNote)
         const response = await noteServices.create(newNote, user.token)
         addNote(response)
         clearErrors()
@@ -33,11 +46,12 @@ export const NoteList = ({ dataCategory, setType }) => {
     const throwNote = () => {
         clearErrors()
         setIsNewNote(false)
+        setValue("title", "")
+        setValue("content", "")
 
     }
     return (
         <>
-
             <section className="flex flex-col gap-6 p-6">
                 <div className="flex gap-4">
                     <div className="flex gap-4">
@@ -59,37 +73,37 @@ export const NoteList = ({ dataCategory, setType }) => {
                         </div>
                     </div>
                 </div>
-                <ul>
-                    {isNewNote && <form onSubmit={handleSubmit(AddNote)} className="w-full p-4 flex gap-4 bg-slate-200 rounded-lg">
-                        <div className="flex gap-2">
-                            <label htmlFor="title" className="font-semibold">Title:</label>
-                            <input type="text" className="bg-white border" {...register("title")} />
-                        </div>
-                        <div className="flex gap-2">
-                            <label htmlFor="title" className="font-semibold">Content:</label>
-                            <input type="text" className="bg-white border" {...register("content")} />
-                        </div>
-                        <div className="flex gap-2">
-                            <label htmlFor="" className="font-semibold">Importance:</label>
-                            <select {...register("important")}>
-                                <option value={false}>No Important</option>
-                                <option value={true}>Important</option>
-                            </select>
-                        </div>
-                        <div className="flex gap-2">
-                            {dataCategory.category === "All" ? (<>
-                                <label htmlFor="" className="font-semibold">Category:</label>
-                                <select>
-                                    {Categories.filter(category => category.category !== "All").map((category, i) => <option key={i} value={category.category}>{category.category}</option>)}
-                                </select></>) : (<h1><span className="font-semibold">Category:</span>{dataCategory.category}</h1>)}
-                        </div>
-                        <button className="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                            </svg>
-                        </button>
-                    </form>}
-                    {dataCategory?.array?.length > 0 && dataCategory?.array.map(note => <Note key={note._id} note={note} />)}
+                {isNewNote && <form onSubmit={handleSubmit(AddNote)} className="w-full p-4 flex gap-4 bg-slate-200 rounded-lg">
+                    <div className="flex gap-2">
+                        <label htmlFor="title" className="font-semibold">Title:</label>
+                        <input type="text" className="bg-white border" {...register("title")} />
+                    </div>
+                    <div className="flex gap-2">
+                        <label htmlFor="title" className="font-semibold">Content:</label>
+                        <input type="text" className="bg-white border" {...register("content")} />
+                    </div>
+                    <div className="flex gap-2">
+                        <label htmlFor="" className="font-semibold">Importance:</label>
+                        <select {...register("important")}>
+                            <option value={false}>No Important</option>
+                            <option value={true}>Important</option>
+                        </select>
+                    </div>
+                    <div className="flex gap-2">
+                        {dataCategory.category === "All" ? (<>
+                            <label htmlFor="" className="font-semibold">Category:</label>
+                            <select {...register("category")}>
+                                {Categories.filter(category => category.category !== "All").map((category, i) => <option key={i} value={category.category}>{category.category}</option>)}
+                            </select></>) : (<h1 className="flex gap-2"><span className="font-semibold">Category:</span>{dataCategory.category}</h1>)}
+                    </div>
+                    <button className="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                    </button>
+                </form>}
+                <ul className="flex flex-row flex-wrap h-[400px] gap-4 p-2 overflow-y-auto">
+                    {filteredArray?.length > 0 && filteredArray.map(note => <Note key={note._id} note={note} />)}
                 </ul>
             </section>
         </>

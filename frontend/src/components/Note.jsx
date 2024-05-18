@@ -3,6 +3,7 @@ import { useNoteContext } from "../context/notesContext"
 import { useUserContext } from "../context/userContext"
 import noteServices from "../services/notes"
 import { useForm } from "react-hook-form"
+import { Categories } from "../constants/Categories"
 
 export const Note = ({ note }) => {
 
@@ -36,9 +37,13 @@ export const Note = ({ note }) => {
         setIsEdit(false)
     }
 
+    const Category = Categories.find(category => category.category === note.category)
+
     return (
-        <li className={`size-64 shadow-2xl rounded-md p-6 flex items-center text-black flex-col justify-between`}>
+        <li className={`size-64 shadow-2xl relative rounded-md p-6 flex items-center ${Category.style} text-white flex-col justify-between`}>
+            <span title={Category.category} className="absolute top-6 left-4"><Category.icon /></span>
             {!isEdit && <div className="flex flex-col gap-6 items-center">
+                <h1>{note.title}</h1>
                 <span>{note.content}</span>
                 <span>{note.important === true ? "IMPORTANT!" : "Not Important"}</span>
             </div>}

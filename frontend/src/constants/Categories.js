@@ -3,47 +3,56 @@ import { AllIcon, FinanceIcon, HealthIcon, IdeaIcon, PersonalIcon, ShopIcon, Stu
 export const Categories = [
     {
         category: "All",
-        style: "all bg-zinc-700",
+        style: "bg-zinc-700",
+        class: "all",
         icon: AllIcon
     },
     {
         category: "Work",
-        style: "work bg-blue-600",
+        style: "bg-blue-600",
+        class: "work",
         icon: WorkIcon
     },
     {
         category: "Shopping",
-        style: "shop bg-red-600",
+        style: "bg-red-600",
+        class: "shop",
         icon: ShopIcon
     },
     {
         category: "Studies",
-        style: "study bg-green-600",
+        style: "bg-green-600",
+        class: "study",
         icon: StudyIcon
     },
     {
         category: "Finance",
-        style: "money bg-orange-600",
+        style: "bg-orange-600",
+        class: "money",
         icon: FinanceIcon
     },
     {
         category: "Travel",
-        style: "travel bg-black",
+        style: "bg-black",
+        class: "travel",
         icon: TravelIcon
     },
     {
         category: "Ideas",
-        style: "idea bg-purple-600",
+        style: "bg-purple-600",
+        class: "idea",
         icon: IdeaIcon
     },
     {
         category: "Health",
-        style: "health bg-pink-600",
+        style: "bg-pink-600",
+        class: "health",
         icon: HealthIcon
     },
     {
         category: "Personal",
-        style: "me bg-yellow-400",
+        style: "bg-yellow-400",
+        class: "me",
         icon: PersonalIcon
     }
 ]

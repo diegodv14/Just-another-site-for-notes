@@ -6,10 +6,17 @@ export const Categories = ({ setType }) => {
     const { notes } = useNoteContext()
 
     const HandleCategory = (category) => {
-        if (category === "All") setType(notes)
+        if (category === "All") setType({
+            category: "All",
+            array: notes
+        })
         else {
             const filteredNotes = notes.filter(note => note.category === category)
-            setType(filteredNotes)
+            setType(
+                {
+                    category: category,
+                    array: filteredNotes
+                })
         }
     }
 

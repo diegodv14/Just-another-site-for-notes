@@ -36,7 +36,7 @@ export const DashBoard = () => {
 
     useEffect(() => {
         if (!user.username && !user.id && !user.token) navigate('/')
-    }, [user])
+    }, [user, category])
 
 
     return (
@@ -44,7 +44,7 @@ export const DashBoard = () => {
             <div className="flex flex-col w-full gap-2 font-[Poppins]">
                 <ToolBar />
                 {category === null && <Categories setType={setCategory} />}
-                {category && <NoteList category={category} setType={setCategory} />}
+                {category?.category && <NoteList dataCategory={category} setType={setCategory} />}
             </div>
         </div >
     )

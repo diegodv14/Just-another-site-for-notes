@@ -32,8 +32,9 @@ export const Note = ({ note }) => {
         }
         noteServices.update(note._id, editedNote, user.token).then(response => {
 
-            const newNotes = notes.filter(noteIn => noteIn._id !== note._id)
-            newNotes.push(response)
+            const newNotes = notes.map(noteIn =>
+                noteIn._id === note._id ? response : noteIn
+            );
             setNotes(newNotes)
         })
         setIsEdit(false)

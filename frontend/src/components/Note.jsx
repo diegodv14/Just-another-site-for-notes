@@ -50,8 +50,14 @@ export const Note = ({ note }) => {
                 <span>{note.important === true ? "IMPORTANT!" : "Not Important"}</span>
             </div>}
             {isEdit && <form onSubmit={handleSubmit(updateNote)} className="flex flex-col w-full gap-6 items-center">
-                <input type="text" placeholder="Title" {...register("editedTitle")} className="text-black p-1" />
-                <textarea placeholder="Content" style={{ resize: "none" }} {...register("editedContent")} className="text-black p-1 w-full h-[90px] " />
+                <input type="text" placeholder="Title" {...register("editedTitle", {
+                    required: true
+                })} className="text-black p-1" />
+                {errors?.editedTitle?.type === "required" && <span className="text-[10px] left-36 top-9 text-red-700 absolute">The Title is required</span>}
+                <textarea placeholder="Content" style={{ resize: "none" }} {...register("editedContent", {
+                    required: true
+                })} className="text-black p-1 w-full h-[90px] " />
+                {errors?.editedContent?.type === "required" && <span className="text-[10px] absolute bottom-32 left-36 text-red-700">The Content is required</span>}
                 <div className="flex flex-row gap-4 items-center">
                     <select {...register("editedImportant")} className="text-black">
                         <option value={false}>Not important</option>

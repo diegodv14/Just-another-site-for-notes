@@ -4,16 +4,22 @@ import { Categories } from "../constants/Categories"
 export const NewNote = ({ AddNote, dataCategory }) => {
 
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
 
     return (
         <>
             <form onSubmit={handleSubmit(AddNote)} className="w-full ml-2 mr-2 p-4 bg-black flex flex-row gap-6 bg-transparent items-center rounded-lg">
-                <div className="flex gap-2 h-fit">
-                    <input placeholder="Title..." type="text" className="bg-white border-b-2 p-2 border-black focus:outline-0" {...register("title")} />
+                <div className="flex flex-col gap-2 h-fit">
+                    <input placeholder="Title..." type="text" className="bg-white border-b-2 p-2 border-black focus:outline-0" {...register("title", {
+                        required: true
+                    })} />
+                    {errors?.title?.type === "required" && <span className="text-[10px] text-red-700 ">The Title is required</span>}
                 </div>
-                <div className="flex gap-2 w-full">
-                    <textarea placeholder="Content..." className="bg-white border-2 border-black max-h-[150px] p-4 w-full" {...register("content")} />
+                <div className="flex flex-col gap-2 w-full">
+                    <textarea placeholder="Content..." className="bg-white border-2 border-black max-h-[150px] p-4 w-full" {...register("content", {
+                        required: true
+                    })} />
+                    {errors?.content?.type === "required" && <span className="text-[10px] text-red-700 ">The Content is required</span>}
                 </div>
                 <div className="flex gap-6 h-fit">
                     <select className="border-2 border-black" {...register("important")}>

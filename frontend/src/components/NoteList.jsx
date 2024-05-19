@@ -24,9 +24,12 @@ export const NoteList = ({ dataCategory, setType }) => {
         if (dataCategory.category === "All" && filter === null) setFilteredArray(notes)
         else if (dataCategory.category === "All" && filter === true) setFilteredArray(notes.filter(note => note.important === filter))
         else if (dataCategory.category === "All" && filter === false) setFilteredArray(notes.filter(note => note.important === filter))
-        else if (filter !== null) {
-            const newArray = notes.filter(note => note.category === dataCategory.category).filter(note => note.important === filter)
-            setFilteredArray(newArray)
+        else if (dataCategory.category !== "All") {
+            const newArray = notes.filter(note => note.category === dataCategory.category)
+            if (filter === null) setFilteredArray(newArray)
+            else {
+                setFilteredArray(newArray.filter(note => note.important === filter))
+            }
         }
     }, [notes, filter])
 

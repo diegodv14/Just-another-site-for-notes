@@ -8,7 +8,7 @@ export const NewNote = ({ AddNote, dataCategory }) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(AddNote)} className="w-full ml-2 mr-2 p-4 bg-black flex flex-row gap-6 bg-transparent items-center rounded-lg">
+            <form onSubmit={handleSubmit(AddNote)} className="w-full mr-2 p-4 bg-gray-300 md:bg-none flex flex-col md:flex-row gap-6 bg-transparent items-center rounded-lg">
                 <div className="flex flex-col gap-2 h-fit">
                     <input placeholder="Title..." type="text" className="bg-white border-b-2 p-2 border-black focus:outline-0" {...register("title", {
                         required: true

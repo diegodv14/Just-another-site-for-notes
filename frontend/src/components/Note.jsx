@@ -57,7 +57,7 @@ export const Note = ({ note }) => {
                 <textarea placeholder="Content" style={{ resize: "none" }} {...register("editedContent", {
                     required: true
                 })} className="text-black p-1 w-full h-[90px] " />
-                {errors?.editedContent?.type === "required" && <span className="text-[10px] absolute bottom-32 left-36 text-red-700">The Content is required</span>}
+                {errors?.editedContent?.type === "required" && <span className="text-[10px] absolute bottom-32 left-[136px] text-red-700">The Content is required</span>}
                 <div className="flex flex-row gap-4 items-center">
                     <select {...register("editedImportant")} className="text-black">
                         <option value={false}>Not important</option>

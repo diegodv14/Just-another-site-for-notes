@@ -22,7 +22,7 @@ export const Categories = ({ setType }) => {
 
 
     return (
-        <div className="w-full h-[500px] p-4 categories">
+        <div className="md:w-full h-[500px] p-4 pr-8 categories">
             {NoteCategories.map((category, i) => {
                 const filteredNotes = notes.filter(note => note.category === category.category)
 

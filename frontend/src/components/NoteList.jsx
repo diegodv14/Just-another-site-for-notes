@@ -61,7 +61,7 @@ export const NoteList = ({ dataCategory, setType }) => {
         <>
             <section className="flex flex-col gap-6 p-6">
                 <div className="flex gap-4">
-                    <div className="flex justify-between items-center w-full">
+                    <div className="flex flex-col md:flex-row md:h-fit h-24 gap-8 md:justify-between items-center w-full">
                         <div className="flex gap-4">
                             <button onClick={() => setType(null)} title="Go Back"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-backspace" viewBox="0 0 16 16">
                                 <path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z" />
@@ -80,16 +80,16 @@ export const NoteList = ({ dataCategory, setType }) => {
                                 <h1>You are in Category <span className="font-bold underline">{dataCategory?.category}</span></h1>
                             </div>
                         </div>
-                        <div className="flex  items-center flex-row gap-3 mr-6">
-                            <span className="font-bold">Let's see:</span>
-                            <button onClick={() => setFilter(null)} className={`p-2 box-border rounded-lg border border-black ${filter === null && "bg-black text-white"}`}>All Notes</button>
-                            <button onClick={() => setFilter(true)} className={`p-2 box-border rounded-lg border border-black ${filter && "bg-black text-white"}`}>Important Notes</button>
-                            <button onClick={() => setFilter(false)} className={`p-2 box-border rounded-lg border border-black ${filter === false && "bg-black text-white"}`}>No Important Notes</button>
+                        <div className="flex flex-row items-center gap-3 mr-6">
+                            <span className="font-bold md:block hidden">Let's see:</span>
+                            <button onClick={() => setFilter(null)} className={`p-2 whitespace-nowrap box-border rounded-lg border border-black ${filter === null && "bg-black text-white"}`}>All Notes</button>
+                            <button onClick={() => setFilter(true)} className={`p-2 box-border whitespace-nowrap rounded-lg border border-black ${filter && "bg-black text-white"}`}>Important Notes</button>
+                            <button onClick={() => setFilter(false)} className={`p-2 box-border whitespace-nowrap rounded-lg border border-black ${filter === false && "bg-black text-white"}`}>No Important Notes</button>
                         </div>
                     </div>
                 </div>
                 {isNewNote && <NewNote AddNote={AddNote} dataCategory={dataCategory} />}
-                <ul className="h-fit list gap-4 p-2 pr-12">
+                <ul className="h-fit list gap-4 p-2 pr-12 mt-8 md:mt-0">
                     {filteredArray?.length > 0 && filteredArray.map(note => <Note key={note._id} note={note} />)}
                 </ul>
             </section>

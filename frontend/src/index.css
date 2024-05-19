@@ -130,7 +130,9 @@ input:-internal-autofill-selected {
 
 .list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    justify-items: center;
+    align-items: center;
     column-gap: 60px;
     row-gap: 50px;
 }
@@ -142,4 +144,26 @@ input:-internal-autofill-selected {
 .option {
     background-clip: text;
     color: transparent;
+}
+
+@media (max-width: 768px) {
+    .categories {
+        display: grid;
+        grid-template-areas:
+            "todo money work "
+            "todo travel shop"
+            "idea health shop"
+            "me health study"
+        ;
+    }
+
+    .auth {
+        background-size: cover;
+    }
+}
+
+@media (max-width: 1024px) {
+    .auth {
+        background-size: cover;
+    }
 }

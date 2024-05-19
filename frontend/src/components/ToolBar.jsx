@@ -27,11 +27,11 @@ export const ToolBar = ({ setSearch, search }) => {
     }
 
     return (
-        <><section className="w-full h-[100px] border-b p-6 flex gap-6 items-center justify-between">
+        <><section className="w-full h-fit relative border-b p-6 flex md:flex-row flex-col gap-6 md:items-center md:justify-between justify-start items-start">
             <div className="flex flex-row gap-4 items-center">
                 <img src="/profile.png" alt="You" className="size-10 rounded-full" />
                 <div className=" flex flex-col">
-                    <h1>Something do you want to remember?</h1>
+                    <h1 className="whitespace-nowrap">Something do you want to remember?</h1>
                     <span className="font-bold">{profile?.username}</span>
                 </div>
             </div>
@@ -41,7 +41,7 @@ export const ToolBar = ({ setSearch, search }) => {
                 </svg></label>
                 <input type="search" id="search" name="search" onChange={(e) => setSearch(e.target.value)} value={search} autoComplete="off" placeholder="Search By Title..." className="border-b w-[350px] pl-[35px] p-2 search border-black" />
             </div>
-            <div className="flex items-center mr-4">
+            <div className="flex items-center absolute md:static top-9 right-4 mr-4">
                 <button title="Logout" onClick={() => logout()} className="scale-100 active:scale-90">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-box-arrow-left" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />

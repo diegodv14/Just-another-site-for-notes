@@ -4,7 +4,7 @@ import { useUserContext } from "../context/userContext"
 import { useForm } from "react-hook-form"
 import { Note } from "./Note"
 import { useNoteContext } from "../context/notesContext"
-import { Categories } from "../constants/Categories"
+import { NewNote } from "./NewNote"
 
 
 export const NoteList = ({ dataCategory, setType }) => {
@@ -13,7 +13,7 @@ export const NoteList = ({ dataCategory, setType }) => {
     const { notes, addNote } = useNoteContext()
     const [filteredArray, setFilteredArray] = useState()
     const [isNewNote, setIsNewNote] = useState(false)
-    const { register, handleSubmit, clearErrors, setValue } = useForm({
+    const { clearErrors, setValue } = useForm({
         defaultValues: {
             important: false,
         }
@@ -30,6 +30,7 @@ export const NoteList = ({ dataCategory, setType }) => {
 
 
     const AddNote = async data => {
+        setIsNewNote(null)
         const newNote = {
             title: data.title,
             content: data.content,
@@ -40,7 +41,6 @@ export const NoteList = ({ dataCategory, setType }) => {
         const response = await noteServices.create(newNote, user.token)
         addNote(response)
         clearErrors()
-        setIsNewNote(null)
     }
 
     const throwNote = () => {
@@ -73,36 +73,8 @@ export const NoteList = ({ dataCategory, setType }) => {
                         </div>
                     </div>
                 </div>
-                {isNewNote && <form onSubmit={handleSubmit(AddNote)} className="w-full p-4 flex gap-4 bg-slate-200 rounded-lg">
-                    <div className="flex gap-2">
-                        <label htmlFor="title" className="font-semibold">Title:</label>
-                        <input type="text" className="bg-white border" {...register("title")} />
-                    </div>
-                    <div className="flex gap-2">
-                        <label htmlFor="title" className="font-semibold">Content:</label>
-                        <input type="text" className="bg-white border" {...register("content")} />
-                    </div>
-                    <div className="flex gap-2">
-                        <label htmlFor="" className="font-semibold">Importance:</label>
-                        <select {...register("important")}>
-                            <option value={false}>No Important</option>
-                            <option value={true}>Important</option>
-                        </select>
-                    </div>
-                    <div className="flex gap-2">
-                        {dataCategory.category === "All" ? (<>
-                            <label htmlFor="" className="font-semibold">Category:</label>
-                            <select {...register("category")}>
-                                {Categories.filter(category => category.category !== "All").map((category, i) => <option key={i} value={category.category}>{category.category}</option>)}
-                            </select></>) : (<h1 className="flex gap-2"><span className="font-semibold">Category:</span>{dataCategory.category}</h1>)}
-                    </div>
-                    <button className="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                        </svg>
-                    </button>
-                </form>}
-                <ul className="flex flex-row flex-wrap h-[400px] gap-4 p-2 overflow-y-auto">
+                {isNewNote && <NewNote AddNote={AddNote} dataCategory={dataCategory} />}
+                <ul className="h-fit list gap-4 p-2 pr-12">
                     {filteredArray?.length > 0 && filteredArray.map(note => <Note key={note._id} note={note} />)}
                 </ul>
             </section>

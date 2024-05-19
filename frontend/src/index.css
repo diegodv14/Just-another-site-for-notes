@@ -10,11 +10,7 @@
 }
 
 body {
-    overflow: hidden;
-    background-image: url('/bg-note.jpg') !important;
-    background-repeat: no-repeat;
-    background-size: 105%;
-    background-position: center;
+    overflow-x: hidden;
 }
 
 .auth {
@@ -130,4 +126,20 @@ input:-internal-autofill-selected {
 
 .health {
     grid-area: health;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    column-gap: 60px;
+    row-gap: 50px;
+}
+
+.search:focus {
+    border-style: none;
+}
+
+.option {
+    background-clip: text;
+    color: transparent;
 }

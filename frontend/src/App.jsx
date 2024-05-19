@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { DashBoard } from "./pages/DashBoard"
 import { Register } from "./pages/Register"
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 const App = () => {
 
@@ -12,12 +12,10 @@ const App = () => {
   }, [])
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Register />} />
-        <Route path="/notes" element={<DashBoard />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route index element={<Register />} />
+      <Route path="/notes" element={<DashBoard />} />
+    </Routes>
   )
 }
 
